@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: RootPage(),
+      home: SafeArea(child: RootPage()),
     );
   }
 }
@@ -34,23 +34,32 @@ class _RootState extends State<RootPage> {
     return Scaffold(
       body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.all(5),
-            child: Image.network(
-              "https://clipground.com/images/logos-png-8.png",
-              width: 40,
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            child: const Center(
-              child: Text(
-                'Design Guild',
-                style: TextStyle(
-                    color: Colors.deepPurple,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold),
-              ),
+          Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Image.network(
+                    "https://clipground.com/images/logos-png-8.png",
+                    width: 40,
+                  ),
+                ),
+                SizedBox(
+                  width: 16,
+                ),
+                Container(
+                  child: const Center(
+                    child: Text(
+                      'Design Guild',
+                      style: TextStyle(
+                          color: Colors.deepPurple,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
           Expanded(
@@ -80,22 +89,34 @@ class _RootState extends State<RootPage> {
                           'Get connected, find designers to start a project')),
                 ),
                 SizedBox(height: 10),
-                const SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: hasPressed,
-                      style: ButtonStyle(
-                        backgroundColor:
-                            WidgetStatePropertyAll(Colors.deepPurple),
-                      ),
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    )),
                 SizedBox(
-                  height: 16,
+                    width: double.infinity,
+                    child: GestureDetector.new(
+                        onTap: hasPressed,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurple,
+                              borderRadius: BorderRadius.circular(8),
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment(0.4, 1),
+                                colors: <Color>[
+                                  Color(0xffA03CEA),
+                                  Color(0xffFB6564),
+                                ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                              )),
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: Center(
+                            child: Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ))),
+                SizedBox(
+                  height: 24,
                 ),
                 SizedBox(
                   child: Text('Or Login With'),
@@ -103,38 +124,132 @@ class _RootState extends State<RootPage> {
                 SizedBox(
                   height: 16,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButton(
-                        onPressed: hasPressed, child: Text('Facebook')),
-                    ElevatedButton(
-                        onPressed: hasPressed, child: Text('Linked In')),
-                    ElevatedButton(onPressed: hasPressed, child: Text('Google'))
+                    GestureDetector.new(
+                        onTap: hasPressed,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 25),
+                          child: Text(
+                            'Facebook',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border(
+                                top: BorderSide(color: Color(0xffAFA2C3)),
+                                bottom: BorderSide(color: Color(0xffAFA2C3)),
+                                left: BorderSide(color: Color(0xffAFA2C3)),
+                                right: BorderSide(color: Color(0xffAFA2C3))),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        )),
+                    GestureDetector.new(
+                        onTap: hasPressed,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 25),
+                          child: Text(
+                            'Linked In',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border(
+                                top: BorderSide(color: Color(0xffAFA2C3)),
+                                bottom: BorderSide(color: Color(0xffAFA2C3)),
+                                left: BorderSide(color: Color(0xffAFA2C3)),
+                                right: BorderSide(color: Color(0xffAFA2C3))),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        )),
+                    GestureDetector.new(
+                        onTap: hasPressed,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 25),
+                          child: Text(
+                            'Google',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border(
+                                top: BorderSide(color: Color(0xffAFA2C3)),
+                                bottom: BorderSide(color: Color(0xffAFA2C3)),
+                                left: BorderSide(color: Color(0xffAFA2C3)),
+                                right: BorderSide(color: Color(0xffAFA2C3))),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        )),
                   ],
                 ),
-                SizedBox(height: 16),
-                Container(
-                  width: double.infinity,
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        icon: Icon(Icons.person),
-                        hintText: 'What do people call you?',
-                        labelText: 'Email'),
+                SizedBox(height: 26),
+                SizedBox(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Email',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16),
+                    ),
                   ),
                 ),
-                SizedBox(height: 16),
-                Container(
+                SizedBox(
                   width: double.infinity,
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                        icon: Icon(Icons.lock),
-                        hintText: 'What do people call you?',
-                        labelText: 'Email'),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                    child: Text('robert.langster@gmail.com'),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border(
+                            top: BorderSide(color: Color(0xffC1A28B)),
+                            bottom: BorderSide(color: Color(0xffC1A28B)),
+                            left: BorderSide(color: Color(0xffC1A28B)),
+                            right: BorderSide(color: Color(0xffC1A28B)))),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                SizedBox(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Password',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                    child: Text('* * * * * * *'),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border(
+                            top: BorderSide(color: Color(0xffC1A28B)),
+                            bottom: BorderSide(color: Color(0xffC1A28B)),
+                            left: BorderSide(color: Color(0xffC1A28B)),
+                            right: BorderSide(color: Color(0xffC1A28B)))),
                   ),
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 16,
                 ),
                 const SizedBox(
                   child: Align(
@@ -142,26 +257,40 @@ class _RootState extends State<RootPage> {
                     child: Text(
                       'Forget Password ?',
                       style: TextStyle(
-                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFF3C2C20),
                           decoration: TextDecoration.underline),
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
-                const SizedBox(
+                SizedBox(height: 16),
+                SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: hasPressed,
-                      style: ButtonStyle(
-                        backgroundColor:
-                            WidgetStatePropertyAll(Colors.deepPurple),
-                      ),
-                      child: Text(
-                        'Log In',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ))
+                    child: GestureDetector.new(
+                        onTap: hasPressed,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurple,
+                              borderRadius: BorderRadius.circular(8),
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment(0.4, 1),
+                                colors: <Color>[
+                                  Color(0xffA03CEA),
+                                  Color(0xffFB6564),
+                                ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                              )),
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: Center(
+                            child: Text(
+                              'Log In',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        )))
               ],
             ),
           ))
